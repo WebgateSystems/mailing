@@ -4,6 +4,12 @@ gem 'rails', '3.2.9'
 gem 'jquery-rails'
 gem 'pg'
 gem 'slim'
+gem "less-rails"
+gem 'libv8'
+gem 'therubyracer'
+gem "nested_form", :git => 'https://github.com/ryanb/nested_form.git'
+gem 'mail'
+gem 'valid_email'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -53,6 +59,7 @@ group :test do
   gem "cucumber-rails"
   gem 'shoulda'
   gem 'shoulda-matchers'
+  gem 'mocha'
 end
 
 # To use ActiveModel has_secure_password

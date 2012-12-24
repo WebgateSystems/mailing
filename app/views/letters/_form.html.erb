@@ -1,0 +1,42 @@
+<%= nested_form_for @letter, :html => {:multipart => true, :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :body, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :body, :class => 'text_area', :style => 'width: 90%;' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :lang, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :lang, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :inline_image, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :inline_image %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :attachments, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.fields_for :attachments do |attachment_form|  %>
+          <p>
+          <%= attachment_form.label :description %><br />
+          <%= attachment_form.text_field :description %>
+          </p>
+          <p>
+          <%= attachment_form.label :file %><br />
+          <%= attachment_form.file_field :file %>
+          </p>
+          <%= attachment_form.link_to_remove "Remove this attachment" %>
+        <% end %>
+        <%= f.link_to_add "Add attachment", :attachments %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                letters_path, :class => 'btn' %>
+  </div>
+<% end %>
