@@ -1,16 +1,15 @@
-<%- model_class = Letter -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%=t 'letters' %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:body) %></th>
-      <th><%= model_class.human_attribute_name(:lang) %></th>
-      <th><%= model_class.human_attribute_name(:inline_image) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%= t(:id) %></th>
+      <th><%= t(:body) %></th>
+      <th><%= t(:language) %></th>
+      <th><%= t(:inline_image) %></th>
+      <th><%= t(:created_at) %></th>
+      <th><%=t 'Actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -18,16 +17,16 @@
       <tr>
         <td><%= link_to letter.id, letter_path(letter) %></td>
         <td><%= letter.body %></td>
-        <td><%= letter.lang %></td>
+        <td><%= lang_human(letter.lang) %></td>
         <td><%= letter.inline_image %></td>
-        <td><%=l letter.created_at %></td>
+        <td><%= letter.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <%= link_to t('Edit', :default => t("helpers.links.edit")),
                       edit_letter_path(letter), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to t('Destroy', :default => t("helpers.links.destroy")),
                       letter_path(letter),
                       :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('are_you_sure'))) },
                       :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
@@ -35,6 +34,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%= link_to t('New', :default => t("helpers.links.new")),
             new_letter_path,
             :class => 'btn btn-primary' %>

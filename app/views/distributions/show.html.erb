@@ -1,23 +1,64 @@
-<%- model_class = Distribution -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%=t 'distribution' %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dt><strong><%= t(:title) %>:</strong></dt>
   <dd><%= @distribution.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:status_id) %>:</strong></dt>
-  <dd><%= @distribution.status_id %></dd>
+  <dt><strong><%= t(:status) %>:</strong></dt>
+  <dd><%= @distribution.status.title %></dd>
 </dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
+  <%= link_to 'Ok',
               distributions_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+  <%= link_to t('Edit', :default => t("helpers.links.edit")),
               edit_distribution_path(@distribution), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+  <%= link_to t('Destroy', :default => t("helpers.links.destroy")),
               distribution_path(@distribution),
               :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('are_you_sure') )) },
               :class => 'btn btn-danger' %>
 </div>
+
+<% unless @letters.blank? %>
+<div class="page-header">
+  <h2><%=t('letters_defined') %></h2>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= t(:id) %></th>
+      <th><%= t(:language) %></th>
+      <th width=40%><%= t(:body) %></th>
+      <th><%= t(:created_at) %></th>
+      <th><%=t 'Actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @letters.each do |l| %>
+      <tr>
+        <td><%= link_to l.id, letter_path(l) %></td>
+        <td><%= lang_human(l.lang) %></td>
+        <td><%= l.body %></td>
+        <td><%= l.created_at %></td>
+        <td>
+          <%= link_to t('Edit', :default => t("helpers.links.edit")),
+                      edit_letter_path(l), :class => 'btn btn-mini' %>
+          <%= link_to t('Destroy', :default => t("helpers.links.destroy")),
+                      letter_path(l),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('are_you_sure') )) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<%= link_to t('create_letter', :default => t("helpers.links.new")),
+            new_letter_for_distribution_path(@distribution),
+            :class => 'btn btn-primary' %>
+
+<%= render 'shared/recipients' unless @recipients.blank? %>

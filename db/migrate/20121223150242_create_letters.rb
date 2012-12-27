@@ -4,6 +4,7 @@ class CreateLetters < ActiveRecord::Migration
       t.text :body
       t.string :lang, :default => 'en'
       t.string :inline_image
+      t.integer :user_id
       t.integer :distribution_id
 
       t.timestamps

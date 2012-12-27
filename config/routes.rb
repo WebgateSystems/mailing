@@ -1,4 +1,12 @@
 Mailing::Application.routes.draw do
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get "signup" => "users#new", :as => "signup"
+  get "new_letter_distribution/:id", :controller => :letters, :action => :new, :as => "new_letter_for_distribution"
+  post "remove_recipients/:id" => "distributions#remove_mailing_recipients", :as => "remove_recipients"
+  resources :user_configs
+  resources :users
+  resources :sessions
   resources :recipients
 
 

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Status < ActiveRecord::Base
   attr_accessible :title
   validates_uniqueness_of :title

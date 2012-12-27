@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121224003531) do
+ActiveRecord::Schema.define(:version => 20121226174816) do
 
   create_table "attachments", :force => true do |t|
     t.text     "description"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20121224003531) do
   create_table "distributions", :force => true do |t|
     t.string   "title"
     t.integer  "status_id",  :default => 1
+    t.integer  "user_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20121224003531) do
     t.text     "body"
     t.string   "lang",            :default => "en"
     t.string   "inline_image"
+    t.integer  "user_id"
     t.integer  "distribution_id"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
@@ -60,13 +62,14 @@ ActiveRecord::Schema.define(:version => 20121224003531) do
   end
 
   create_table "recipients", :force => true do |t|
+    t.integer  "user_id"
     t.string   "email"
     t.string   "lang",       :default => "en"
-    t.string   "gender",     :default => "male"
     t.string   "salutation"
+    t.string   "gender",     :default => "male"
     t.string   "name"
-    t.string   "patronymic"
     t.string   "surname"
+    t.string   "patronymic"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end
@@ -76,5 +79,32 @@ ActiveRecord::Schema.define(:version => 20121224003531) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "user_configs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "lang"
+    t.string   "server"
+    t.integer  "port"
+    t.string   "login"
+    t.string   "password"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_configs", ["user_id"], :name => "index_user_configs_on_user_id"
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                                           :null => false
+    t.string   "crypted_password",                                :null => false
+    t.string   "salt"
+    t.string   "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
+    t.boolean  "admin",                        :default => false
+    t.boolean  "active",                       :default => true
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+  end
+
+  add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
 
 end

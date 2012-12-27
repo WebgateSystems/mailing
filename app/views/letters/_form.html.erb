@@ -1,42 +1,60 @@
-<%= nested_form_for @letter, :html => {:multipart => true, :class => 'form-horizontal' } do |f| %>
+<ul style="font-weight: bold; color: red;">
+  <% @letter.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul><br />
+
+<%= nested_form_for @letter, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
+    <% if @distribution %>
+        <%= f.hidden_field :distribution_id, :value => @distribution %>
+    <% else %>
+    <div class="control-group">
+      <%= f.label t(:distribution), :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :distribution_id, select_distributions %>
+      </div>
+    </div>
+    <% end %>
+    <div class="control-group">
+      <%= f.label t(:language), :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :lang, select_langs %>
+      </div>
+    </div>
   <div class="control-group">
-    <%= f.label :body, :class => 'control-label' %>
+    <%= f.label t(:body), :class => 'control-label' %>
     <div class="controls">
       <%= f.text_area :body, :class => 'text_area', :style => 'width: 90%;' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :lang, :class => 'control-label' %>
+    <%= f.label t(:inline_image), :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :lang, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :inline_image, :class => 'control-label' %>
-    <div class="controls">
+      <% unless @letter.inline_image.blank? %>
+        <%= image_tag @letter.inline_image.thumb.url %><br />
+        <%= f.check_box :remove_inline_image %> <%= t(:remove_inline_image_or) %><br />
+      <% end %>
       <%= f.file_field :inline_image %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :attachments, :class => 'control-label' %>
+    <%= f.label t(:attachments), :class => 'control-label' %>
     <div class="controls">
       <%= f.fields_for :attachments do |attachment_form|  %>
-          <p>
-          <%= attachment_form.label :description %><br />
-          <%= attachment_form.text_field :description %>
-          </p>
-          <p>
-          <%= attachment_form.label :file %><br />
+          <p><br />
+          <%= attachment_form.label t(:description) %>
+          <%= attachment_form.text_field :description %><br /><br />
+          <%= attachment_form.label t(:file) %>
           <%= attachment_form.file_field :file %>
           </p>
-          <%= attachment_form.link_to_remove "Remove this attachment" %>
+          <%= attachment_form.link_to_remove t('remove_this_attachment') %>
         <% end %>
-        <%= f.link_to_add "Add attachment", :attachments %>
+        <%= f.link_to_add t('add_attachment'), :attachments %>
     </div>
   </div>
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+    <%= f.submit t('Save'), :class => 'btn btn-primary' %>
+    <%= link_to t('Cancel', :default => t("helpers.links.cancel")),
                 letters_path, :class => 'btn' %>
   </div>
 <% end %>

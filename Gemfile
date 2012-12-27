@@ -11,6 +11,9 @@ gem "nested_form", :git => 'https://github.com/ryanb/nested_form.git'
 gem 'mail'
 gem 'valid_email'
 
+# Email database crypt:
+gem 'attr_encrypted', :git => 'https://github.com/sysadm/attr_encrypted.git'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -22,7 +25,11 @@ end
 
 # Upload
 gem 'carrierwave'
-gem 'mini_magick'
+gem 'rmagick'
+
+# Authentication & authorization
+gem 'sorcery'
+gem 'cancan'
 
 # Scheduler
 gem "resque"
@@ -34,7 +41,7 @@ gem 'unicorn'
 
 # To use debugger
 # gem 'debugger'
-gem 'exception_notification_rails3', :require => 'exception_notifier'
+gem 'exception_notification_rails3', :require => 'exception_notifier', :group => :production
 
 gem "rspec-rails", :group => [ :development, :test ]
 

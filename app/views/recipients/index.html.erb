@@ -1,20 +1,20 @@
 <%- model_class = Recipient -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%=t('recipients') %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:lang) %></th>
-      <th><%= model_class.human_attribute_name(:gender) %></th>
-      <th><%= model_class.human_attribute_name(:salutation) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:patronymic) %></th>
-      <th><%= model_class.human_attribute_name(:surname) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%= t(:id) %></th>
+      <th><%= t(:email) %></th>
+      <th><%= t(:language) %></th>
+      <th><%= t(:gender) %></th>
+      <th><%= t(:salutation) %></th>
+      <th><%= t(:name) %></th>
+      <th><%= t(:patronymic) %></th>
+      <th><%= t(:surname) %></th>
+      <th><%= t(:created_at) %></th>
+      <th><%=t 'Actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -22,20 +22,20 @@
       <tr>
         <td><%= link_to recipient.id, recipient_path(recipient) %></td>
         <td><%= recipient.email %></td>
-        <td><%= recipient.lang %></td>
+        <td><%= lang_human(recipient.lang) %></td>
         <td><%= recipient.gender %></td>
         <td><%= recipient.salutation %></td>
         <td><%= recipient.name %></td>
         <td><%= recipient.patronymic %></td>
         <td><%= recipient.surname %></td>
-        <td><%=l recipient.created_at %></td>
+        <td><%= recipient.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <%= link_to t('Edit', :default => t("helpers.links.edit")),
                       edit_recipient_path(recipient), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to t('Destroy', :default => t("helpers.links.destroy")),
                       recipient_path(recipient),
                       :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('are_you_sure'))) },
                       :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
@@ -43,6 +43,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%= link_to t('New', :default => t("helpers.links.new")),
             new_recipient_path,
             :class => 'btn btn-primary' %>

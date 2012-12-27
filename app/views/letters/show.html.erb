@@ -1,25 +1,34 @@
-<%- model_class = Letter -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%=t 'letter' %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:body) %>:</strong></dt>
+  <dt><strong><%= t(:body) %>:</strong></dt>
   <dd><%= @letter.body %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:lang) %>:</strong></dt>
-  <dd><%= @letter.lang %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:inline_image) %>:</strong></dt>
-  <dd><%= @letter.inline_image %></dd>
+  <dt><strong><%= t(:language) %>:</strong></dt>
+  <dd><%= lang_human(@letter.lang) %></dd><br />
+  <% unless @letter.inline_image.blank? %>
+      <dt><strong><%= t(:inline_image) %>:</strong></dt>
+      <dd><%= image_tag @letter.inline_image.url %></dd><br />
+  <% end %>
+  <% unless @letter.attachments.empty? %>
+      <dt><strong><%= t(:attachments) %>:</strong></dt>
+      <% @letter.attachments.each do |a| %>
+        <dd><%= link_to a.file_identifier, a.file_url, :style=>"font-weight: bold;" %> <%= " - " + a.description unless a.description.blank? %></dd>
+      <% end %>
+  <% end %>
 </dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
+  <%= link_to t('Ok'),
               letters_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+  <%= link_to t('Edit', :default => t("helpers.links.edit")),
               edit_letter_path(@letter), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+  <%= link_to t('Destroy', :default => t("helpers.links.destroy")),
               letter_path(@letter),
               :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t('are_you_sure') )) },
               :class => 'btn btn-danger' %>
 </div>
+
+<%= render 'shared/recipients' unless @recipients.blank? %>

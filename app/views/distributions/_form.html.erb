@@ -1,14 +1,31 @@
-<%= form_for @distribution, :html => { :class => 'form-horizontal' } do |f| %>
+<ul style="font-weight: bold; color: red;">
+  <% @distribution.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul><br />
+<%= nested_form_for @distribution, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
+    <%= f.label t(:title), :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :title, :class => 'text_field' %>
     </div>
   </div>
+    <div class="control-group">
+      <div class="controls">
+        <%= f.fields_for :attachments do |attachment_form|  %>
+            <p><br />
+            <%= attachment_form.label t(:file) %>
+            <%= attachment_form.file_field :file %>
+            </p>
+            <%= attachment_form.link_to_remove t('remove_this_attachment') %>
+          <% end %>
+          <%= f.link_to_add t('add_csv_attachment'), :attachments %>
+      </div>
+    </div>
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+    <%= f.submit t('Save'), :class => 'btn btn-primary' %>
+    <%= link_to t('Cancel', :default => t("helpers.links.cancel")),
                 distributions_path, :class => 'btn' %>
   </div>
 <% end %>

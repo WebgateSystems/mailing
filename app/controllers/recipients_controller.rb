@@ -1,4 +1,6 @@
+# encoding: utf-8
 class RecipientsController < ApplicationController
+  before_filter :require_login, :check_config
   # GET /recipients
   # GET /recipients.json
   def index

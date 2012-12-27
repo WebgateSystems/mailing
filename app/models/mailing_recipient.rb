@@ -1,3 +1,4 @@
+# encoding: utf-8
 class MailingRecipient < ActiveRecord::Base
   attr_accessible :distribution_id, :recipient_id, :email_status_id, :letter_id
   validates_uniqueness_of :distribution_id, :scope => :recipient_id
