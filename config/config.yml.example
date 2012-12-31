@@ -1,0 +1,46 @@
+development:
+  domain: "dev"
+  title: "Mailing"
+  encryption_key: "fncuJVHiy7oq+q0PL9Ol"
+  description: "Default page description"
+  keywords: "Default keywords"
+
+  noreply_email: 'noreply@mailing.webgate.pro'
+  support_email: 'support@webgate.pro'
+
+# dane do wysyłania poczty z aplikacji
+  am_smtp_data:
+    tls: true
+    address: smtp.gmail.com
+    port: 587
+    domain: gmail.com
+    user_name: devmailing@gmail.com
+    password: hEZRv9nujxuHWzdixZcu
+    authentication: plain
+
+production:
+  domain: "mailing.webgate.pro"
+  title: "Mailing"
+  encryption_key: "Jacz0-vsQm=ngUc/BLmPDTr"
+  description: "Default page description"
+  keywords: "Default keywords"
+
+  noreply_email: 'noreply@mailing.webgate.pro'
+  support_email: 'support@webgate.pro'
+
+  am_smtp_data:
+    tls: true
+    address: smtp.gmail.com
+    port: 587
+    domain: gmail.com
+    user_name: mailing@gmail.com
+    password: FBAUoXx35dAkwK3da4Cp
+    authentication: plain
+
+
+test:
+  domain: "dev"
+  title: "Mailing"
+  encryption_key: "9hJ9BezxC2xHy6iwk4Wq"
+  description: "Default page description"
+  keywords: "Default keywords"

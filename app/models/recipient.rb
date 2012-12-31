@@ -1,7 +1,10 @@
 # encoding: utf-8
 class Recipient < ActiveRecord::Base
   attr_accessible :email, :gender, :lang, :name, :patronymic, :surname, :salutation, :user_id
-  validates_uniqueness_of :email
+  attr_encrypted :email, :key => :encryption_key, :algorithm => 'aes-256-cbc', :charset => :default
+  attr_encrypted :name, :key => :encryption_key, :algorithm => 'aes-256-cbc', :charset => :default
+  attr_encrypted :surname, :key => :encryption_key, :algorithm => 'aes-256-cbc', :charset => :default
+
   validates_presence_of :user_id
   validates :email, :presence => true, :email => true
   has_many :distributions, :through => :mailing_recipients
@@ -21,4 +24,11 @@ class Recipient < ActiveRecord::Base
       mr.update_attribute(:letter_id, letter.id) if letter
     end
   end
+
+  protected
+
+  def encryption_key
+    self.user.encryption_key
+  end
+
 end

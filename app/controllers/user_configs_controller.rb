@@ -4,16 +4,25 @@ class UserConfigsController < ApplicationController
 
   def show
     @user_config = UserConfig.find_by_user_id(current_user.id)
-    respond_to do |format|
-      format.html # show.html.erb
+    if @user_config
+      respond_to do |format|
+        format.html # show.html.erb
+      end
+    else
+      redirect_to new_user_config_path
     end
   end
 
   def new
-    @user_config = UserConfig.new
+    unless current_user.user_config
+      @user_config = UserConfig.new
+      @user_config.user_id = current_user.id
 
-    respond_to do |format|
-      format.html # new.html.erb
+      respond_to do |format|
+        format.html # new.html.erb
+      end
+    else
+      redirect_to edit_user_config_path(current_user.user_config)
     end
   end
 

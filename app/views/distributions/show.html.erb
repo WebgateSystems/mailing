@@ -31,7 +31,7 @@
     <tr>
       <th><%= t(:id) %></th>
       <th><%= t(:language) %></th>
-      <th width=40%><%= t(:body) %></th>
+      <th width=40%><%= t(:subject) %></th>
       <th><%= t(:created_at) %></th>
       <th><%=t 'Actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -41,11 +41,15 @@
       <tr>
         <td><%= link_to l.id, letter_path(l) %></td>
         <td><%= lang_human(l.lang) %></td>
-        <td><%= l.body %></td>
+        <td><%= l.subject %></td>
         <td><%= l.created_at %></td>
         <td>
           <%= link_to t('Edit', :default => t("helpers.links.edit")),
                       edit_letter_path(l), :class => 'btn btn-mini' %>
+          <%= link_to t(:send),
+                      send_letter_path(l),
+                      :method => :post,
+                      :class => 'btn btn-mini btn-warning' %>
           <%= link_to t('Destroy', :default => t("helpers.links.destroy")),
                       letter_path(l),
                       :method => :delete,

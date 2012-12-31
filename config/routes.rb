@@ -4,6 +4,7 @@ Mailing::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   get "new_letter_distribution/:id", :controller => :letters, :action => :new, :as => "new_letter_for_distribution"
   post "remove_recipients/:id" => "distributions#remove_mailing_recipients", :as => "remove_recipients"
+  post "send_letter/:id" => "letters#send_letter", :as => "send_letter"
   resources :user_configs
   resources :users
   resources :sessions

@@ -43,13 +43,14 @@ ActiveRecord::Schema.define(:version => 20121226174816) do
   add_index "fileattaches", ["attachable_id"], :name => "index_fileattaches_on_attachable_id"
 
   create_table "letters", :force => true do |t|
-    t.text     "body"
-    t.string   "lang",            :default => "en"
+    t.string   "encrypted_subject"
+    t.text     "encrypted_body"
+    t.string   "lang",              :default => "en"
     t.string   "inline_image"
     t.integer  "user_id"
     t.integer  "distribution_id"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "mailing_recipients", :force => true do |t|
@@ -63,15 +64,15 @@ ActiveRecord::Schema.define(:version => 20121226174816) do
 
   create_table "recipients", :force => true do |t|
     t.integer  "user_id"
-    t.string   "email"
-    t.string   "lang",       :default => "en"
+    t.string   "encrypted_email"
+    t.string   "lang",              :default => "en"
     t.string   "salutation"
-    t.string   "gender",     :default => "male"
-    t.string   "name"
-    t.string   "surname"
+    t.string   "gender",            :default => "m"
+    t.string   "encrypted_name"
+    t.string   "encrypted_surname"
     t.string   "patronymic"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "statuses", :force => true do |t|
@@ -85,10 +86,17 @@ ActiveRecord::Schema.define(:version => 20121226174816) do
     t.string   "lang"
     t.string   "server"
     t.integer  "port"
-    t.string   "login"
-    t.string   "password"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "auth",                :default => "plain"
+    t.boolean  "starttls"
+    t.boolean  "tls"
+    t.boolean  "ssl"
+    t.string   "openssl_verify_mode"
+    t.string   "encrypted_login"
+    t.string   "encrypted_password"
+    t.string   "encrypted_name"
+    t.string   "encrypted_surname"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   add_index "user_configs", ["user_id"], :name => "index_user_configs_on_user_id"
@@ -101,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20121226174816) do
     t.datetime "remember_me_token_expires_at"
     t.boolean  "admin",                        :default => false
     t.boolean  "active",                       :default => true
+    t.string   "encryption_salt"
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
   end

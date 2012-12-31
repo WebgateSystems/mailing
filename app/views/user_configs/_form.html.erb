@@ -5,6 +5,19 @@
 </ul><br />
 
 <%= form_for @user_config, :html => { :class => 'form-horizontal' } do |f| %>
+    <%= f.hidden_field :user_id, :value => @user_config.user_id %>
+    <div class="control-group">
+    <%= f.label t(:name), :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+    <%= f.label t(:surname), :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :surname, :class => 'text_field' %>
+      </div>
+    </div>
     <div class="control-group">
       <%= f.label t(:interface_language), :class => 'control-label' %>
       <div class="controls">
@@ -24,6 +37,36 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label t(:auth), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :auth, auth_select %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label t(:starttls), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :starttls %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label t(:tls), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :tls %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label t(:ssl), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :ssl %>
+    </div>
+  </div>
+    <div class="control-group">
+      <%= f.label t(:openssl_verify_mode), :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :openssl_verify_mode, openssl_verify_mode_select %>
+      </div>
+    </div>
+  <div class="control-group">
     <%= f.label t(:login), :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :login, :class => 'text_field' %>
@@ -33,6 +76,12 @@
     <%= f.label t(:password), :class => 'control-label' %>
     <div class="controls">
       <%= f.password_field :password, :class => 'text_field' %>
+    </div>
+  </div>
+<div class="control-group">
+    <%= f.label t(:password_confirmation), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, :class => 'text_field' %>
     </div>
   </div>
 

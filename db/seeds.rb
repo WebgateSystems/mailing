@@ -1,11 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
+# encoding: utf-8
 puts 'Create default user'
 @user = User.find_by_email("biuro@webgate.pro")
 @user ||= User.create(:email => 'biuro@webgate.pro', :password => 'admin', :password_confirmation => 'admin', :admin => true)
@@ -29,15 +22,19 @@ unless Distribution.find_by_title("Test mailing")
 
   puts 'Create recipients...'
   #:email, :gender, :lang, :name, :patronymic, :surname, :salutation
-  Recipient.create(email: "sysadm@op.pl", lang: 'pl', name: "Bronisław", surname: "Komorowski", salutation: "Pan", user_id: @user.id)
-  Recipient.create(email: "biuro@webgate.pro", lang: 'en', name: "Barak", surname: "Obama", salutation: "Mr. President", user_id: @user.id)
-  Recipient.create(email: "iphanter@mail.ru", lang: 'ru', name: "Иван", patronymic: 'Иванович', surname: "Охлобыстин", salutation: "проф.", user_id: @user.id)
+  r1 = Recipient.create(user_id: @user.id, email: "sysadm@op.pl", lang: 'pl', name: "Bronisław", surname: "Komorowski", salutation: "Pan")
+  r2 = Recipient.create(user_id: @user.id, email: "biuro@webgate.pro", lang: 'en', name: "Barak", surname: "Obama", salutation: "Mr. President")
+  r3 = Recipient.create(user_id: @user.id, email: "iphanter@mail.ru", lang: 'ru', name: "Иван", patronymic: 'Иванович', surname: "Охлобыстин", salutation: "проф.")
   puts 'created.'
+
+  puts 'Add recipients to distribution'
+  @distribution.recipients = [r1, r2, r3]
+  puts 'added.'
 
   puts 'Create test letters...'
   # :body, :inline_image, :lang, :attachments_attributes, :distribution_id
-  Letter.create(body: "Test message body", lang: 'en', distribution_id: @distribution.id, user_id: @user.id)
-  Letter.create(body: "Zawartość testowego mailu", lang: 'pl', distribution_id: @distribution.id, user_id: @user.id)
-  Letter.create(body: "Тело тестового сообщения", lang: 'ru', distribution_id: @distribution.id, user_id: @user.id)
+  Letter.create(user_id: @user.id, subject: "Only test", body: "Test message body", lang: 'en', distribution_id: @distribution.id)
+  Letter.create(user_id: @user.id, subject: "Po prostu test", body: "Zawartość testowego mailu", lang: 'pl', distribution_id: @distribution.id)
+  Letter.create(user_id: @user.id, subject: "Просто тест", body: "Тело тестового сообщения", lang: 'ru', distribution_id: @distribution.id)
   puts 'created.'
 end

@@ -5,7 +5,7 @@
   <thead>
     <tr>
       <th><%= t(:id) %></th>
-      <th><%= t(:body) %></th>
+      <th><%= t(:subject) %></th>
       <th><%= t(:language) %></th>
       <th><%= t(:inline_image) %></th>
       <th><%= t(:created_at) %></th>
@@ -15,14 +15,18 @@
   <tbody>
     <% @letters.each do |letter| %>
       <tr>
-        <td><%= link_to letter.id, letter_path(letter) %></td>
-        <td><%= letter.body %></td>
+        <td><%= letter.id %></td>
+        <td><%= link_to letter.subject, letter_path(letter) %></td>
         <td><%= lang_human(letter.lang) %></td>
         <td><%= letter.inline_image %></td>
         <td><%= letter.created_at %></td>
         <td>
           <%= link_to t('Edit', :default => t("helpers.links.edit")),
                       edit_letter_path(letter), :class => 'btn btn-mini' %>
+          <%= link_to t(:send),
+                      send_letter_path(letter),
+                      :method => :post,
+                      :class => 'btn btn-mini btn-warning' %>
           <%= link_to t('Destroy', :default => t("helpers.links.destroy")),
                       letter_path(letter),
                       :method => :delete,

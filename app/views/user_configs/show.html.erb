@@ -3,12 +3,30 @@
 </div>
 
 <dl class="dl-horizontal">
+  <% unless @user_config.name.blank? %>
+  <dt><strong><%= t(:name) %>:</strong></dt>
+  <dd><%= @user_config.name %></dd>
+  <% end %>
+  <% unless @user_config.surname.blank? %>
+  <dt><strong><%= t(:surname) %>:</strong></dt>
+  <dd><%= @user_config.surname %></dd>
+  <% end %>
   <dt><strong><%= t(:interface_language) %>:</strong></dt>
   <dd><%= lang_human(@user_config.lang) %></dd>
   <dt><strong><%= t(:server) %>:</strong></dt>
   <dd><%= @user_config.server %></dd>
   <dt><strong><%= t(:auth_port) %>:</strong></dt>
   <dd><%= secureport_human(@user_config.port) %></dd>
+  <dt><strong><%= t(:auth) %>:</strong></dt>
+  <dd><%= @user_config.auth %></dd>
+  <dt><strong><%= t(:starttls) %>:</strong></dt>
+  <dd><%= @user_config.starttls %></dd>
+  <dt><strong><%= t(:tls) %>:</strong></dt>
+  <dd><%= @user_config.tls %></dd>
+  <dt><strong><%= t(:ssl) %>:</strong></dt>
+  <dd><%= @user_config.ssl %></dd>
+  <dt><strong><%= t(:openssl_verify_mode) %>:</strong></dt>
+  <dd><%= @user_config.openssl_verify_mode %></dd>
   <dt><strong><%= t(:login) %>:</strong></dt>
   <dd><%= @user_config.login %></dd>
 </dl>

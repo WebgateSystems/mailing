@@ -14,6 +14,12 @@ class LettersController < ApplicationController
 
   # GET /letters/1
   # GET /letters/1.json
+  def send_letter
+    @letter = current_user.letters.find(params[:id])
+    @letter.send_for_all_recipients(current_user) if @letter
+    redirect_to letters_path
+  end
+
   def show
     @letter = current_user.letters.find(params[:id])
     @recipients = @letter.recipients

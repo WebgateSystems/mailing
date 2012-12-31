@@ -8,6 +8,7 @@ class SorceryCore < ActiveRecord::Migration
       t.datetime :remember_me_token_expires_at, :default => nil
       t.boolean :admin,           :default => false
       t.boolean :active,          :default => true
+      t.string :encryption_salt
       t.timestamps
     end
     add_index :users, :remember_me_token

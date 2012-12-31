@@ -5,8 +5,15 @@ class CreateUserConfigs < ActiveRecord::Migration
       t.string :lang
       t.string :server
       t.integer :port
-      t.string :login
-      t.string :password
+      t.string :auth, :default => 'plain'
+      t.boolean :starttls, :default => nil
+      t.boolean :tls, :default => nil
+      t.boolean :ssl, :default => nil
+      t.string :openssl_verify_mode, :default => nil
+      t.string :encrypted_login
+      t.string :encrypted_password
+      t.string :encrypted_name
+      t.string :encrypted_surname
 
       t.timestamps
     end

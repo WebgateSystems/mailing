@@ -22,6 +22,12 @@
       </div>
     </div>
   <div class="control-group">
+    <%= f.label t(:subject), :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :subject, :class => 'text_field', :style => 'width: 90%;' %>
+    </div>
+  </div>
+  <div class="control-group">
     <%= f.label t(:body), :class => 'control-label' %>
     <div class="controls">
       <%= f.text_area :body, :class => 'text_area', :style => 'width: 90%;' %>
