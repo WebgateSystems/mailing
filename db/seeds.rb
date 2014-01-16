@@ -15,6 +15,17 @@ Status.find_or_create_by_title("Canceled")
 Status.find_or_create_by_title("Archive")
 puts 'Loaded default statuses'
 
+puts 'Load default languages'
+@lang = Language.find_or_create_by_iso('en')
+@lang.update_attributes(long: "english", human: "English")
+@lang = Language.find_or_create_by_iso('pl')
+@lang.update_attributes(long: "polish", human: "Polski")
+@lang = Language.find_or_create_by_iso('ru')
+@lang.update_attributes(long: "russian", human: "Русский")
+@lang = Language.find_or_create_by_iso('ua')
+@lang.update_attributes(long: "ukrainian", human: "Українська")
+puts 'Loaded default languages'
+
 unless Distribution.find_by_title("Test mailing")
   puts 'Create test mailing...'
   @distribution = Distribution.create(title: "Test mailing", user_id: @user.id, status_id: @status.id)

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+#gem 'rails', '3.2.9'
+gem 'rails', '3.2.12'
 gem 'jquery-rails'
 gem 'pg'
 gem 'slim'
@@ -8,9 +9,9 @@ gem "less-rails"
 gem 'libv8'
 gem 'therubyracer'
 gem "nested_form", :git => 'https://github.com/ryanb/nested_form.git'
-gem 'mail'
+gem 'mail', '2.4.4'
 gem 'valid_email'
-
+gem 'rack-ssl', '1.3.3'
 # Email database crypt:
 gem 'attr_encrypted', :git => 'https://github.com/sysadm/attr_encrypted.git'
 
@@ -56,6 +57,9 @@ group :development do
     gem 'rvm'
     gem 'rvm-capistrano'
     gem 'nifty-generators'
+    gem 'better_errors'
+    gem 'binding_of_caller'
+    gem 'rack-mini-profiler'
 end
 
 group :test do

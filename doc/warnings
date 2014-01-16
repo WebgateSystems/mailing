@@ -1,0 +1,16 @@
+1) Upgrade ruby from 1.9.3 to 2.0.0 not possible, cause we have no possibility to access to encrypted fields,
+for example @letter.subject:
+
+ActionView::Template::Error (no implicit conversion of Symbol into String):
+    16:     <% @letters.each do |letter| %>
+    17:       <tr>
+    18:         <td><%= letter.id %></td>
+    19:         <td><%= link_to letter.subject, letter_path(letter) %></td>
+
+===
+2) It's impossible to uprade to rails 3.2.13, cause rails 3.2.13 depend on mail 2.5.3, but last work version
+of mail is 2.4.4. New one have a problem with tls connection:
+
+SSL_connect returned=1 errno=0 state=SSLv2/v3 read server hello A: unknown protocol
+
+

@@ -51,6 +51,9 @@
           <%= attachment_form.label t(:description) %>
           <%= attachment_form.text_field :description %><br /><br />
           <%= attachment_form.label t(:file) %>
+          <span style="font-weight: bold;">
+            <%= attachment_form.object.file.uploaded_filename %><br />
+          </span>
           <%= attachment_form.file_field :file %>
           </p>
           <%= attachment_form.link_to_remove t('remove_this_attachment') %>

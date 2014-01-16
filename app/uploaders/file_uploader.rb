@@ -2,6 +2,10 @@
 
 class FileUploader < CarrierWave::Uploader::Base
 
+  def uploaded_filename
+    model.read_attribute mounted_as
+  end
+
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
   # include CarrierWave::MiniMagick

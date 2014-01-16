@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121226174816) do
+ActiveRecord::Schema.define(:version => 20121231141143) do
 
   create_table "attachments", :force => true do |t|
     t.text     "description"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(:version => 20121226174816) do
   end
 
   add_index "fileattaches", ["attachable_id"], :name => "index_fileattaches_on_attachable_id"
+
+  create_table "languages", :force => true do |t|
+    t.string   "iso"
+    t.string   "long"
+    t.string   "human"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "letters", :force => true do |t|
     t.string   "encrypted_subject"
